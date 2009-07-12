@@ -44,7 +44,7 @@ sub getDifference
 	my $parser = DateTime::Format::ISO8601->new();
 	my $reference = $parser->parse_datetime($time);
 
-	return getCreateDate($file) - $reference;
+	return $reference - getCreateDate($file);
 }
 
 
