@@ -11,4 +11,10 @@ use DateTime::Format::Builder
 	}
 );
 
+sub format_datetime
+{
+	my ($self, $dt) = @_;
+	return $dt->strftime("%Y:%m:%d %H:%M:%S");
+}
+
 1;
