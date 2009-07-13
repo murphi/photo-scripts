@@ -1,0 +1,22 @@
+photo-scripts
+Copyright (c) 2009, Martin Engelmann <martin.engelmann@gmx.de>
+
+This is a set of scripts to edit a collection of photos. It consits of the
+following scripts and modules:
+ * adjust-time.pl
+   Corrects the CreateDate exif tag in a number of files. 
+
+ * Photo.pm
+ 	Module with some routines used by multiple scripts.
+
+ * DateTime/Format/Exif.pm
+ 	Helper class to parse timestamps in the exif tags to DateTime objects and
+	format them again
+
+Dependencies:
+ * DateTime::Format::Builder
+ * DateTime::Format::Duration
+ * DateTime::Format::Exif
+ * DateTime::Format::ISO8601
+ * Image::ExifTool
+
