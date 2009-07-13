@@ -11,16 +11,22 @@ use DateTime::Format::Duration;
 my $formatDuration = DateTime::Format::Duration->new(pattern => "%r");
 my ($refFile, $refDate, @files) = @ARGV;
 
-my $createDate = getCreateDate( $refFile );
+my $refCreateDate = getCreateDate( $refFile );
+if (not defined $refDate) {
+	print "$refFile created $refCreateDate\n";
+	exit 0;
+}
+
 my $diff = getDifference($refFile, $refDate);
 
-print "$refFile created $createDate, diff = " . 
+print "$refFile created $refCreateDate, diff = " . 
 	$formatDuration->format_duration($diff) . "\n";
 
 for my $file (@files) {
 	my $orig = getCreateDate($file);
 	my $adjusted = $orig + $diff;
 	print "Adjusting $file:  $orig -> $adjusted\n";
+	setCreateDate($file, $adjusted);
 }
 
 
