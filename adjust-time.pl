@@ -20,6 +20,7 @@
 use strict;
 use warnings;
 
+use Getopt::Long;
 use Photo;
 use Image::ExifTool qw(:Public);
 use Date::Parse;
@@ -27,7 +28,13 @@ use DateTime::Format::Exif;
 use DateTime::Format::Duration;
 
 my $formatDuration = DateTime::Format::Duration->new(pattern => "%r");
-my ($refFile, $refDate, @files) = @ARGV;
+
+my ($refFile, $refDate, @files) = ('', '', ());
+GetOptions(
+	"reference=s"	=> \$refFile,
+	"time=s"	=> \$refDate,
+	"input=s{1,}"	=> \@files
+	);
 
 my $refCreateDate = getCreateDate( $refFile );
 if (not defined $refDate) {
