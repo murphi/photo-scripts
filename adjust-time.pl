@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 
 # photo-scripts - Set of scripts to edit a collection of photos
 # Copyright (C) 2009, Martin Engelmann <martin.engelmann@gmx.de>
@@ -18,6 +18,7 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 use strict;
+use warnings;
 
 use Photo;
 use Image::ExifTool qw(:Public);
