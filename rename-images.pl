@@ -20,4 +20,21 @@
 use strict;
 use warnings;
 
+use Photo;
+
+my @photos = ();
+GetOptions(
+	"photos=s{1,}"	=> \@photos
+	);
+
+
+my %files;
+foreach my $photo (@photos) {
+	$files{ getCreateDate($photo) } = $photo;
+}
+
+my $index = 0;
+foreach my $key (sort keys %files) {
+	print "$files{$key}\n";
+}
 
