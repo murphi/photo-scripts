@@ -20,21 +20,33 @@
 use strict;
 use warnings;
 
+use Getopt::Long;
+use File::Basename;
 use Photo;
 
 my @photos = ();
+my $outputDir = ".";
 GetOptions(
+	"output=s"		=> \$outputDir,
 	"photos=s{1,}"	=> \@photos
 	);
 
 
 my %files;
 foreach my $photo (@photos) {
-	$files{ getCreateDate($photo) } = $photo;
+	my $dt = getCreateDate($photo);
+	print "$photo -- $dt\n";
+	$files{ $dt } = $photo;
 }
 
 my $index = 0;
 foreach my $key (sort keys %files) {
-	print "$files{$key}\n";
+	$index++;
+	my ($file, $dir) = fileparse($files{$key});
+
+	my $dst = sprintf "%.5d_%s", $index, $file;
+
+	print "$dst -- $key\n";
+	link $files{$key}, $outputDir . "/" . $dst;
 }
 
