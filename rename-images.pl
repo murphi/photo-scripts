@@ -22,6 +22,7 @@ use warnings;
 
 use Getopt::Long;
 use File::Basename;
+use File::Copy;
 use Photo;
 
 my @photos = ();
@@ -35,7 +36,6 @@ GetOptions(
 my %files;
 foreach my $photo (@photos) {
 	my $dt = getCreateDate($photo);
-	print "$photo -- $dt\n";
 	$files{ $dt } = $photo;
 }
 
@@ -45,8 +45,8 @@ foreach my $key (sort keys %files) {
 	my ($file, $dir) = fileparse($files{$key});
 
 	my $dst = sprintf "%.5d_%s", $index, $file;
-
-	print "$dst -- $key\n";
-	link $files{$key}, $outputDir . "/" . $dst;
+	my $dstFile = $outputDir . "/" . $dst;
+	copy $files{$key}, $dstFile  or 
+		warn "Cant copy $files{$key} to $dstFile: $!\n";
 }
 
